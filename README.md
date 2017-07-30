@@ -6,5 +6,7 @@ To call Google App Engine:
 
 curl -H "Content-Type: application/json" -X POST -d '{"message":"hello world"}' https://test-project-174900.appspot.com/_ah/api/echo/v1/echo
 
--"hello world" can be replaced with any other in quotes text and that message will be returned
--if a message is recieved about being temporarily over the serving quota, type the exact same cURL command replacing "test-project-174900" with "green-diagram-174817". This performs the same action.
+(1) "hello world" can be replaced with any other in quotes text and that message will be returned
+
+
+(2) if a message is recieved about being temporarily over the serving quota, type the exact same cURL command replacing "test-project-174900" with "green-diagram-174817". This performs the same action.
