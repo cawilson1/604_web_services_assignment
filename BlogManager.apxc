@@ -1,0 +1,57 @@
+tResource(urlMapping='/blog/*')
+global with sharing class BlogManager {
+
+    @HttpPost
+    global static String createBlogPost(String blogtext){
+        RestRequest request = RestContext.request;
+        //String contactLastName = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+        //System.debug(contactLastName);
+        
+        Blog__c newBlog = new Blog__c(Blog_Text__c = blogtext,
+                                     Name = 'genericblogname');
+        System.debug('blogtext' + blogtext);
+        //Contact newCont = new Contact(LastName=contactLastName);
+        insert newBlog;
+        return newBlog.Blog_Text__c;
+    }
+    
+    @HttpGet
+    global static String getBlogPost(){
+        RestRequest request = RestContext.request;
+        String blognumberString = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+        Integer blognumber = Integer.valueOf(blognumberString);
+        //String blognumber = RestContext.request.params.get('blognumber');
+       // RestRequest request = RestContext.request;
+        Blog__c[] fetchedBlog = [select id, Blog_Text__c, isDeleted from Blog__c order by CreatedDate];
+        return fetchedBlog[blognumber].Blog_Text__c;
+        
+        
+    }
+    
+    @HttpDelete
+    global static String deleteBlogPost(){
+        RestRequest request = RestContext.request;
+        String blognumberString = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+        Integer blognumber = Integer.valueOf(blognumberString);
+        Blog__c[] fetchedBlogs = [select id, Blog_Text__c from Blog__c order by CreatedDate];
+        Blog__c fetchedblog = fetchedBlogs[blognumber]; 
+        System.debug(fetchedblog);
+        delete fetchedblog;
+        
+        return 'The blog number ' + blognumber + ' is deleted.';
+        
+    }
+    
+    @HttpPut
+    global static String replaceBlogPost(String blogtext){
+        RestRequest request = RestContext.request;
+        String blognumberString = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+        Integer blognumber = Integer.valueOf(blognumberString);
+        Blog__c[] fetchedBlogs = [select id, Blog_Text__c from Blog__c order by CreatedDate];
+        Blog__c fetchedBlog = fetchedBlogs[blognumber];
+        fetchedBlog.Blog_Text__c = blogtext;
+        
+        update fetchedBlog;
+        return fetchedBlog.Blog_Text__c;
+    }
+}
