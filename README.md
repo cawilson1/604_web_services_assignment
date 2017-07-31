@@ -1,5 +1,7 @@
 # 604_web_services_assignment
 
+Some of the characters in the cURL commands are deleted when sent to GitHub. I will also upload this file to Oaks dropbox, which will have the accurate cURL requests. 
+
 My blog was created using Salesforce. After spending a few days trying to figure out Google App Engine, given the time constraints, I did not have the ability to traverse through the tree of information that I didn't know to get a working blog on Google App Engine. So I frankensteined together an alternate solution that meets all of the basic requirements for the assignment:
 (1)The blog is implemented via Salesforce, and can be successfully called via cURL for all requirements. The .apxc file is the apex file controlling the salesforce blog.
 (2)My Google App Engine backend can still be successfully called via cURL, but it performs a different function than the blog. The .java files are the default echo example files.
